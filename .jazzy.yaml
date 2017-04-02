@@ -1,0 +1,11 @@
+# KeyedCache document generator jazzy settings
+
+copyright: Copyright 2017 Rien van der Lugt
+author: Rien van der Lugt
+module: KeyedCache
+hide_documentation_coverage: true
+xcodebuild_arguments: [-target, KeyedCache]
+github_url: https://github.com/Balancingrock/KeyedCache
+output: ~/Documents/Websites/sf/projects/keyedcache/reference
+clean: true
+theme: fullwidth
