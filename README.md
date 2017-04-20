@@ -10,6 +10,10 @@ If a new item must be placed and an old item must be purged, the purging strateg
 
 To allow limiting by size, items to be stored in the cache must implement the EstimatedMemoryConsumption protocol. A default implementation is provided if this limiting strategy is not used. When using this strategy, the EstimatedMemoryConsumption should make a "best guess" at the memory consumption. The better the "guess" the better this limiting strategy will work. Note that for many (most?) uses it will not be necessary to use exact values.
 
+# Reference manual
+
+See [http://swiftfire.nl/projects/keyedcache/reference/index.html](http://swiftfire.nl/projects/keyedcache/reference/index.html)
+
 # Version history
 
 Note: Planned releases are for information only and subject to change without notice.
