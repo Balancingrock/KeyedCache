@@ -18,8 +18,14 @@ See [http://swiftfire.nl/projects/keyedcache/reference/index.html](http://swiftf
 
 Note: Planned releases are for information only and subject to change without notice.
 
-#### v1.0.0 (Planned)
+#### 1.0.0 (Planned)
 
 - To accompany Swiftfire 1.0.0
 
-#### v0.1.0 (Current)
+#### 0.2.0 (Current)
+
+- Upgrade for BRUtils 0.3.0
+
+#### 0.1.0
+
+- Initial version
