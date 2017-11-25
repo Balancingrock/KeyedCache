@@ -22,7 +22,11 @@ Note: Planned releases are for information only and subject to change without no
 
 - To accompany Swiftfire 1.0.0
 
-#### 0.4.0 (Current)
+#### 0.5.0 (Current)
+
+- Upgrade for BRUtils 0.9.0
+
+#### 0.4.0
 
 - Upgrade for BRUtils 0.5.0
 
