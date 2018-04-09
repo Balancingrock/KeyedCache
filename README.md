@@ -24,6 +24,10 @@ Note: Planned releases are for information only and subject to change without no
 
 #### 0.6.0 (Current)
 
+- Migrated to SPM 4
+
+#### 0.6.0
+
 - Upgrade for BRUtils 0.10.0
 
 #### 0.5.0
