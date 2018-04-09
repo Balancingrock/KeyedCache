@@ -22,7 +22,7 @@ Note: Planned releases are for information only and subject to change without no
 
 - To accompany Swiftfire 1.0.0
 
-#### 0.6.0 (Current)
+#### 0.7.0 (Current)
 
 - Migrated to SPM 4
 
