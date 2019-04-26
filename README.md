@@ -22,7 +22,11 @@ Note: Planned releases are for information only and subject to change without no
 
 - To accompany Swiftfire 1.0.0
 
-#### 0.7.0 (Current)
+#### 0.8.0 (Current)
+
+- Migration to Swift 5
+
+#### 0.7.0
 
 - Migrated to SPM 4
 
