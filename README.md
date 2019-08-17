@@ -18,38 +18,6 @@ See [http://swiftfire.nl/projects/keyedcache/reference/index.html](http://swiftf
 
 Note: Planned releases are for information only and subject to change without notice.
 
-#### 1.0.0 (Planned)
+#### 1.0.0 (Current)
 
 - To accompany Swiftfire 1.0.0
-
-#### 0.8.0 (Current)
-
-- Migration to Swift 5
-
-#### 0.7.0
-
-- Migrated to SPM 4
-
-#### 0.6.0
-
-- Upgrade for BRUtils 0.10.0
-
-#### 0.5.0
-
-- Upgrade for BRUtils 0.9.0
-
-#### 0.4.0
-
-- Upgrade for BRUtils 0.5.0
-
-#### 0.3.0
-
-- Upgrade for BRUtils 0.4.0
-
-#### 0.2.0
-
-- Upgrade for BRUtils 0.3.0
-
-#### 0.1.0
-
-- Initial version

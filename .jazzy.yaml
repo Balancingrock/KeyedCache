@@ -6,6 +6,6 @@ module: KeyedCache
 hide_documentation_coverage: true
 xcodebuild_arguments: [-target, KeyedCache]
 github_url: https://github.com/Balancingrock/KeyedCache
-output: ~/Documents/Websites/sf/projects/keyedcache/reference
+output: ~/Documents/Websites/swiftfire.nl/projects/keyedcache/reference
 clean: true
 theme: fullwidth
