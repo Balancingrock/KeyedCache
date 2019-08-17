@@ -3,12 +3,11 @@
 //  File:       KeyedCache.swift
 //  Project:    KeyedCache
 //
-//  Version:    1.0.0
+//  Version:    1.0.1
 //
 //  Author:     Marinus van der Lugt
 //  Company:    http://balancingrock.nl
 //  Website:    http://swiftfire.nl/
-//  Blog:       http://swiftrien.blogspot.com
 //  Git:        https://github.com/Balancingrock/Swiftfire
 //
 //  Copyright:  (c) 2017-2019 Marinus van der Lugt, All rights reserved.
