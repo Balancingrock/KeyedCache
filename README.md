@@ -22,6 +22,14 @@ To allow limiting by size, items to be stored in the cache must implement the Es
 
 No new features planned. Updates are made on an ad-hoc basis as needed to support Swiftfire development.
 
+#### 1.0.2
+
+- Documentation updates
+
+#### 1.0.1
+
+- Documentation updates
+
 #### 1.0.0
 
 - To accompany Swiftfire 1.0.0
