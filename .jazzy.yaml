@@ -1,9 +1,9 @@
 # KeyedCache document generator jazzy settings
 
-copyright: Copyright 2017 Rien van der Lugt
-author: Rien van der Lugt
+copyright: Copyright 2017..2019 rien@balancingrock.nl
+author: Balancingrock
 module: KeyedCache
-hide_documentation_coverage: true
+hide_documentation_coverage: false
 xcodebuild_arguments: [-target, KeyedCache]
 github_url: https://github.com/Balancingrock/KeyedCache
 output: ~/Documents/Websites/swiftfire.nl/projects/keyedcache/reference
