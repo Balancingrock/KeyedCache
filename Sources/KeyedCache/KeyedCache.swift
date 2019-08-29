@@ -3,7 +3,7 @@
 //  File:       KeyedCache.swift
 //  Project:    KeyedCache
 //
-//  Version:    1.0.1
+//  Version:    1.1.0
 //
 //  Author:     Marinus van der Lugt
 //  Company:    http://balancingrock.nl
@@ -36,6 +36,7 @@
 //
 // History
 //
+// 1.1.0 - Added operation to remove targetted cache elements
 // 1.0.1 - Documentation update
 // 1.0.0 - Removed older history
 //
@@ -110,6 +111,13 @@ public protocol KeyedCache {
     /// Empties the cache completely
     
     func reset()
+    
+    
+    /// Remove the element associated with the given key from the cache.
+    ///
+    /// - Returns: True on success, false if the key is unknown.
+
+    func remove(_ key: Key) -> Bool
 }
 
 
@@ -317,5 +325,14 @@ final public class MemoryCache<K: Hashable, E: EstimatedMemoryConsumption>: Keye
     public func reset() {
         items = [:]
         estimatedMemoryConsumption = 0
+    }
+    
+    
+    /// Remove the element associated with the given key from the cache
+    ///
+    /// - Returns: True on success, false if the key is unknown.
+    
+    public func remove(_ key: K) -> Bool {
+        return items.removeValue(forKey: key) != nil
     }
 }
