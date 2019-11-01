@@ -3,7 +3,7 @@
 //  File:       KeyedCache.swift
 //  Project:    KeyedCache
 //
-//  Version:    1.1.0
+//  Version:    1.2.0
 //
 //  Author:     Marinus van der Lugt
 //  Company:    http://balancingrock.nl
@@ -36,6 +36,9 @@
 //
 // History
 //
+// 1.2.0 - Added time based criteria to subscript get
+//       - Added estimated memory consumption protocol to swift type Data
+//       - Improved removal algorithm to prevent lock-out and cyclical removal
 // 1.1.0 - Added operation to remove targetted cache elements
 // 1.0.1 - Documentation update
 // 1.0.0 - Removed older history
@@ -106,6 +109,13 @@ public protocol KeyedCache {
     /// Accessing the cached elements through the subscript notation
     
     subscript(_ key: Key) -> Element? { get set }
+    
+    
+    /// Accessing the cached elements through the subscript notation enhanced by time checking
+    ///
+    /// The element should be removed from the cache if it was added before the given timestamp (a JavaData).
+    
+    subscript(_ key: Key, _ timestamp: Int64) -> Element? { get }
     
     
     /// Empties the cache completely
@@ -238,7 +248,7 @@ final public class MemoryCache<K: Hashable, E: EstimatedMemoryConsumption>: Keye
     
     public subscript(_ key: K) -> E? {
         
-        get { // Return nil if there is no element for the given key. Otherwsie update the internal tracking parameters and return the element.
+        get { // Return nil if there is no element for the given key. Otherwise update the internal tracking parameters and return the element.
             
             guard let item = items[key] else { return nil }
             
@@ -271,11 +281,29 @@ final public class MemoryCache<K: Hashable, E: EstimatedMemoryConsumption>: Keye
                 // Purge according to the selected purge strategy
                 
                 while keepPurging() {
+                    
                     switch purgeStrategy {
-                    case .leastRecentUsed: purgeElement({ $0.lastAccess < $1.lastAccess })
-                    case .leastUsed:       purgeElement({ $0.accessCount < $1.accessCount })
+                    
+                    case .leastRecentUsed:
+                        
+                        purgeElement({ $0.lastAccess < $1.lastAccess })
+                    
+                        
+                    case .leastUsed:
+                        
+                        // Randomize the item to be removed from the eligable items to prevent cyclic removal of the same item
+                        let orderedItems = items.sorted { $0.value.accessCount < $1.value.accessCount }
+                        let filteredItems = orderedItems.filter { $0.value.accessCount == orderedItems[0].value.accessCount }
+                        let i = Int.random(in: 0 ..< filteredItems.count)
+                        let removedItem = items.removeValue(forKey: filteredItems[i].key)!
+                        estimatedMemoryConsumption -= removedItem.element.estimatedMemoryConsumption
                     }
                 }
+                
+                
+                // If the purge was on least used, reset all used counters to prevent 'locking' of the items in the cache
+                
+                items.forEach { $0.value.accessCount = 0 }
             }
             
             
@@ -305,7 +333,7 @@ final public class MemoryCache<K: Hashable, E: EstimatedMemoryConsumption>: Keye
                 
             case .bySize(let maxSize):
                 
-                // Ensure there is enouigh space for the new element
+                // Ensure there is enough space for the new element
                 
                 let target = maxSize - element.estimatedMemoryConsumption
                 purge({ estimatedMemoryConsumption > target })
@@ -316,6 +344,33 @@ final public class MemoryCache<K: Hashable, E: EstimatedMemoryConsumption>: Keye
             
             items[key] = Item(element)
             estimatedMemoryConsumption += element.estimatedMemoryConsumption
+        }
+    }
+    
+    
+    /// Return the request element if it existed after the given timestamp.
+    ///
+    /// - Note: If the element existed before the given timestamp it will be removed from the cache.
+    ///
+    /// - Parameters:
+    ///   - key: The identifier (key) for the requested object
+    ///   - timestamp: The time the object in question should have been created after. (JavaDate)
+    
+    public subscript(_ key: K, _ timestamp: Int64) -> E? {
+        
+        get { // Return nil if there is no element for the given key or if the element was older than the given timestamp. Otherwise update the internal tracking parameters and return the element.
+            
+            guard let item = items[key] else { return nil }
+            
+            guard item.lastAccess < timestamp else {
+                _ = self.remove(key)
+                return nil
+            }
+            
+            item.accessCount += 1
+            item.lastAccess = Date().javaDate
+            
+            return item.element
         }
     }
     
@@ -335,4 +390,8 @@ final public class MemoryCache<K: Hashable, E: EstimatedMemoryConsumption>: Keye
     public func remove(_ key: K) -> Bool {
         return items.removeValue(forKey: key) != nil
     }
+}
+
+extension Data: EstimatedMemoryConsumption {
+    public var estimatedMemoryConsumption: Int { return self.count }
 }
