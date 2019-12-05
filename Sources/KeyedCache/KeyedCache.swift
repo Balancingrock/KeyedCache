@@ -3,7 +3,7 @@
 //  File:       KeyedCache.swift
 //  Project:    KeyedCache
 //
-//  Version:    1.2.0
+//  Version:    1.2.1
 //
 //  Author:     Marinus van der Lugt
 //  Company:    http://balancingrock.nl
@@ -36,6 +36,7 @@
 //
 // History
 //
+// 1.2.1 - Restructured the time based subscript getter
 // 1.2.0 - Added time based criteria to subscript get
 //       - Added estimated memory consumption protocol to swift type Data
 //       - Improved removal algorithm to prevent lock-out and cyclical removal
@@ -362,15 +363,22 @@ final public class MemoryCache<K: Hashable, E: EstimatedMemoryConsumption>: Keye
             
             guard let item = items[key] else { return nil }
             
-            guard item.lastAccess < timestamp else {
+            if item.lastAccess < timestamp {
+            
+                // item is older than given timestamp, remove the item and return nil
+                
                 _ = self.remove(key)
                 return nil
+            
+            } else {
+                
+                // update the access related data and return the item
+            
+                item.accessCount += 1
+                item.lastAccess = Date().javaDate
+            
+                return item.element
             }
-            
-            item.accessCount += 1
-            item.lastAccess = Date().javaDate
-            
-            return item.element
         }
     }
     
