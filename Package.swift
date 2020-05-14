@@ -8,7 +8,7 @@ let package = Package(
         .library(name: "KeyedCache", targets: ["KeyedCache"])
     ],
     dependencies: [
-        .package(url: "../BRUtils", from: "1.1.0")
+        .package(url: "https://github.com/Balancingrock/BRUtils", from: "1.1.0")
     ],
     targets: [
         .target(
