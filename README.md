@@ -22,6 +22,10 @@ To allow limiting by size, items to be stored in the cache must implement the Es
 
 No new features planned. Updates are made on an ad-hoc basis as needed to support Swiftfire development.
 
+#### 1.2.3
+
+- Added swift version, platforms and LICENSE file
+
 #### 1.2.2
 
 - Updated BRUtils version
