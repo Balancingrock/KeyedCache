@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "KeyedCache",
-    platforms: [.macOS(.v10_10), .iOS(.v8)]
+    platforms: [.macOS(.v10_10), .iOS(.v8)],
     products: [.library(name: "KeyedCache", targets: ["KeyedCache"])],
     dependencies: [
         .package(url: "https://github.com/Balancingrock/BRUtils", from: "1.1.0")
